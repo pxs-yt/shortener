@@ -2,7 +2,10 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const crypto = require('crypto');
 const app = express();
-const db = new sqlite3.Database('./db/database.sqlite');
+const db = new sqlite3.Database(
+  process.env.DATABASE_URL || './db/database.sqlite',
+  sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE
+);
 
 // Initialize database
 db.serialize(() => {
